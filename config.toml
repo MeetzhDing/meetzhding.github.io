@@ -1,6 +1,6 @@
 baseURL = "https://Meetzhding.github.io"
 languageCode = "en"
-defaultContentLanguage = "zh-cn"                             # en / zh-cn / ... (This field determines which i18n file to use)
+defaultContentLanguage = "zh-cn"
 title = "Even So, Meet You"
 preserveTaxonomyNames = true
 enableRobotsTXT = true
