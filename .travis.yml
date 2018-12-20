@@ -8,8 +8,7 @@ branches:
   only:
     - Blog
 
-script:
-  ‐ hugo
+script: hugo
 deploy:
     provider: pages
     skip_cleanup: true
