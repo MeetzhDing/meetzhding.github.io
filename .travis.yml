@@ -1,0 +1,19 @@
+sudo: false
+language: go
+git:
+    depth: 1
+install: go get -v github.com/gohugoio/hugo
+script:
+    ‐ hugo
+deploy:
+    provider: pages
+    skip_cleanup: true
+    github_token: 16e554319048b2a50d9f5e68330a4c001515dc0e
+    on:
+        branch: Blog
+    local_dir: public
+    repo: Meetzhding/Meetzhding.github.io
+    fqdn: Meetzhding.github.io
+    target_branch: master
+    email: 3303652975@qq.com
+    name: MeetzhDing
