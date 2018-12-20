@@ -8,11 +8,12 @@ branches:
   only:
     - Blog
 
-script: hugo
+script:
+  - hugo
 deploy:
     provider: pages
     skip_cleanup: true
-    github_token: 16e554319048b2a50d9f5e68330a4c001515dc0e
+    github_token: $GITHUB_TOKEN
     on:
         branch: Blog
     local_dir: public
