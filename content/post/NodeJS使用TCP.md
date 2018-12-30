@@ -2,7 +2,7 @@
 title: "NodeJS使用TCP"
 date: 2018-12-30T19:58:01+08:00
 draft: false
----
+---  
 
 ## HTTP服务器
 
@@ -10,7 +10,7 @@ draft: false
 
 下面是一个复读机程序，对于接收到的任何内容，回复相同的数据。
 
-```Nodejs
+```js
 var http = require('http');
 var querystring = require('querystring');
 var util = require('util')
@@ -33,7 +33,7 @@ http.createServer(function(req, res){
 
 最开始的时候，程序并没有进行超时处理，也没有对error情况进行处理，当一个TCP客户端没有正确地发送断开命令时，程序就可能进入error状态，进而导致整个程序完全崩溃。如果数据交互的过程中没有发生错误，对于同一个请求IP和端口的client，也可能会产生多个连接。
 
-```Nodejs
+```js
 var net = require('net');
 var HOST = '127.0.0.1';
 var PORT = 9999;
@@ -88,7 +88,7 @@ server.listen(PORT, HOST);
 
 这里使用NodeJS来实现了一个简单的TCP客户端，以便于在需要的时候对客户端进行功能的调整与扩充。
 
-```Nodejs
+```js
 var net = require('net');
 
 var HOST = '127.0.0.1';
