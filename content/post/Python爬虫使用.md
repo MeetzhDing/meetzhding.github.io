@@ -186,15 +186,17 @@ finally:
 
 ```python
 import requests
+import os
 import os.path
+import win32api
 import random
 import json
 from bs4 import BeautifulSoup
 
 # absdir = os.path.dirname(os.path.abspath(__file__))
-target_dir = 'D:/tools/ShadowsocksR/'
+target_dir = 'D:/Scoop/persist/shadowsocksr-csharp'
 filename = 'gui-config.json'
-url = 'https://a.ishadowx.net/'
+url = 'https://c.ishadowx.net/'
 
 gui_config = {}
 base_config = {
@@ -216,10 +218,11 @@ base_config = {
 }
 
 
-def main():
+def update_config():
     gui_config = json.load(open(os.path.join(target_dir, filename)))
-    if len(gui_config['configs']) > 0:
-        gui_config['configs'] = gui_config['configs'][:1]  # 保留第一项配置
+    # if len(gui_config['configs']) > 0:
+    #     gui_config['configs'] = gui_config['configs'][:1]  # 保留第一项配置
+    gui_config['configs'] = []  # 不保留第一项配置
 
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.67 Safari/537.36'
@@ -247,7 +250,10 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    # 终止ShadowsocksR进程
+    os.system("taskkill /F /IM ShadowsocksR-dotnet4.0.exe")
+    update_config()
+    win32api.ShellExecute(0, 'open', r'D:\Scoop\shims\shadowsocksr-dotnet4.0.exe', '','',0)
 
 ```
 <br><br><br>
