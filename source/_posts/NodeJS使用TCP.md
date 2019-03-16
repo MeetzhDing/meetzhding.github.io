@@ -1,8 +1,7 @@
 ---
 title: "NodeJS使用TCP"
-date: 2018-12-30T19:58:01+08:00
-draft: false
----  
+date: 2018-12-30 19:58:01
+---
 
 ## HTTP服务器
 
@@ -62,8 +61,8 @@ let server = net.createServer(function(sock) {
 
     // TCP连接发生错误或超时的情况下，断开这个连接
     sock.on('error', function(err) {
-        console.log(err); 
-        sock.destroy();  
+        console.log(err);
+        sock.destroy();
     })
 
     sock.on('timeout', function() {

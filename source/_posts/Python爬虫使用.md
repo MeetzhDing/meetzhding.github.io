@@ -1,7 +1,6 @@
 ---
 title: "Python爬虫使用"
-date: 2018-12-30T12:28:30+08:00
-draft: false
+date: 2018-12-30 12:28:30
 ---
 
 写过一些零散的代码，但是因为代码量小，重写快，往往都会直接把代码的文件删去，当下次又有重复的需求的时候，可能就需要再次重写。
@@ -23,7 +22,7 @@ from bs4 import BeautifulSoup
 # absdir = os.path.dirname(os.path.abspath(__file__))
 
 # 网页抓取内容的存放文件夹
-target_dir = 'D:/src_dir/' 
+target_dir = 'D:/src_dir/'
 
 
 def main(url, base_url):
@@ -34,13 +33,13 @@ def main(url, base_url):
     if resp.status_code != 200:
         print('Error:', resp.status_code)
         return
-    
+
     html_doc = resp.content
     soup = BeautifulSoup(html_doc, 'html.parser')
     content = soup.find_all('div', class_='infobox')[0]
 
     # 对于网页中的src=/开头的img资源，将网页的网址前添加上base_url
-    for i in content.find_all('img'): 
+    for i in content.find_all('img'):
         if i['src'][0] == '/':
             i['src'] = base_url + i.get('src')
 
@@ -59,12 +58,12 @@ def main(url, base_url):
 
 if __name__ == '__main__':
     # 网页中的src链接以base_url作为基准获得各类资源
-    base_url = 'http://ci.hfut.edu.cn'  
+    base_url = 'http://ci.hfut.edu.cn'
     url = 'http://ci.hfut.edu.cn/2018/1203/c3962a194604/page.htm'
     main(url, base_url)
 ```
 
-整个网页抓取的过程非常简单，其中唯一特殊的操作，就是将img的src路径进行更改，将原本为 src=/\* 替换为 src=/base_url/\* 
+整个网页抓取的过程非常简单，其中唯一特殊的操作，就是将img的src路径进行更改，将原本为 src=/\* 替换为 src=/base_url/\*
 
 ---
 <br><br><br>
@@ -76,7 +75,7 @@ if __name__ == '__main__':
 之前在爬取网页时，将html内相对路径的src转换为绝对路径，也就是为了便于Pandoc进行自动化图片抓取。
 
 首先介绍一下Pandoc的基本使用方法
-    
+
     pandoc --reference-doc D:/template.docx {src_file} -o {output_file}'
 
 这里的--reference-doc 是一个可选的参数，对于想要生成的文档，指定不同的样式。
@@ -117,7 +116,7 @@ if __name__ == '__main__':
     loop = asyncio.get_event_loop()
     loop.run_until_complete(main())
 ```
-        
+
 ---
 <br><br><br>
 

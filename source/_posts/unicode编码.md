@@ -1,7 +1,6 @@
 ---
 title: "Unicode编码"
-date: 2019-01-19T20:25:29+08:00
-draft: false
+date: 2019-01-19 20:25:29
 ---
 
 Unicode（统一码、万国码、单一码）是计算机科学领域里的一项业界标准，包括字符集、编码方案等。Unicode 是为了解决传统的字符编码方案的局限而产生的，它为每种语言中的每个字符设定了统一并且唯一的二进制编码，以满足跨语言、跨平台进行文本转换、处理的要求。
@@ -114,10 +113,10 @@ def is_Kangxi_Radicals(ch):
     if len(ch) != 1:
         return False
     # uni 格式为b'\\uF900'
-    uni = ch.encode('Unicode-escape') 
+    uni = ch.encode('Unicode-escape')
     if len(uni) < 6:
         return False
-    # 去除首部的b'\\ 和 尾部的' 
+    # 去除首部的b'\\ 和 尾部的'
     # 再添加 0x 开头代表16进制
     uni_hex = '0x' + str(uni)[-5:-1]
     if 0x2F00 <= int(uni_hex, 16) <= 0x2FDF:
@@ -133,10 +132,10 @@ def is_CJK_Radicals_Supplement(ch):
     if len(ch) != 1:
         return False
     # uni 格式为b'\\uF900'
-    uni = ch.encode('Unicode-escape') 
+    uni = ch.encode('Unicode-escape')
     if len(uni) < 6:
         return False
-    # 去除首部的b'\\ 和 尾部的' 
+    # 去除首部的b'\\ 和 尾部的'
     # 再添加 0x 开头代表16进制
     uni_hex = '0x' + str(uni)[-5:-1]
     if 0x2E80 <= int(uni_hex, 16) <= 0x2EFF:
@@ -152,10 +151,10 @@ def is_CJK_Compatibility_Ideographs(ch):
     if len(ch) != 1:
         return False
     # uni 格式为b'\\uF900'
-    uni = ch.encode('Unicode-escape') 
+    uni = ch.encode('Unicode-escape')
     if len(uni) < 6:
         return False
-    # 去除首部的b'\\ 和 尾部的' 
+    # 去除首部的b'\\ 和 尾部的'
     # 再添加 0x 开头代表16进制
     uni_hex = '0x' + str(uni)[-5:-1]
     if 0xF900 <= int(uni_hex, 16) <= 0xFAFF:
@@ -178,5 +177,5 @@ def main(filename=None):
             if  not is_Kangxi_Radicals(ch) \
                 and not is_CJK_Compatibility_Ideographs(ch) \
                 and not is_CJK_Radicals_Supplement(ch):
-                    fw.write(ch) 
+                    fw.write(ch)
 ```

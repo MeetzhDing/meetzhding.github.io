@@ -1,7 +1,6 @@
 ---
 title: "Python发送邮件"
-date: 2018-12-30T19:20:33+08:00
-draft: false
+date: 2018-12-30 19:20:33
 ---
 
 ## 使用Python发送Email邮件
