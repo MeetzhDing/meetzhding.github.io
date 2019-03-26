@@ -8,6 +8,7 @@ date: 2018-12-30 12:28:30
 
 这是一篇有关于爬虫的个人记录，其中对于曾经用过的BeautifulSoup, selenium, request, asyncio库进行一个记录。
 
+<!-- more -->
 <br>
 
 ## 爬取网站中的新闻稿

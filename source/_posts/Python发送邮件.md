@@ -9,6 +9,8 @@ Python常被用于快速开发以及机器学习相关领域，当你需要运�
 
 使用Python自带的email库，就可以实现这个功能。
 
+<!-- more -->
+
 ```python
 # mail.py文件
 import os
