@@ -27,11 +27,15 @@ RSA 是一种公钥秘钥密码体制，现在使用非常广泛，这个密码�
 
 下面 csdn 博客的 CA 证书内容：
 
+<div align=center>
 ![CSDN博客CA证书](https://github.com/MeetzhDing/Meetzhding.github.io/blob/Blog/picture/CSDN博客CA证书.png?raw=true)
+</div>
 
 可以看到公钥是一串很长的 2048 Bits 的字符串，同时也可以看到使用者内容包含了 csdn.net 网址，这个网址是 CSDN 唯一拥有的，还有颁发者、有效期、签名哈希算法等等。当然还有指纹及指纹算法等其他内容，我们滚动到下面看看另外一个截图
 
-![CSDN博客CA证书](https://github.com/MeetzhDing/Meetzhding.github.io/blob/Blog/picture/CSDN博客CA证书指纹.png?raw=true)
+<div align=center>
+![CSDN博客CA证书指纹](https://github.com/MeetzhDing/Meetzhding.github.io/blob/Blog/picture/CSDN博客CA证书指纹.png?raw=true)
+</div>
 
 这里特别说明一下，CA 机构也有自己的证书，我们姑且称之为根证书，它也有自己的公钥和私钥，我称之为根公钥和根私钥吧。当然根公钥和加密算法是向外公布的，而根私钥是机构自己绝对保密的。
 
@@ -43,7 +47,9 @@ RSA 是一种公钥秘钥密码体制，现在使用非常广泛，这个密码�
 
 图示如下：
 
+<div align=center>
 ![Https加密过程](https://github.com/MeetzhDing/Meetzhding.github.io/blob/Blog/picture/Https加密过程.gif?raw=true)
+</div>
 
 假设这是一个浏览器的 HTTPS 请求。
 
