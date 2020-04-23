@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"meetzhding.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="腾讯云中间件前端团队面试 面试持续了整整一个小时，发现还是有许多细节自己没有掌握，还需要继续努力。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="腾讯前端实习生面试">
+<meta property="og:url" content="https://meetzhding.github.io/2019/03/20/%E8%85%BE%E8%AE%AF%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E7%94%9F%E9%9D%A2%E8%AF%95/index.html">
+<meta property="og:site_name" content="变换思维">
+<meta property="og:description" content="腾讯云中间件前端团队面试 面试持续了整整一个小时，发现还是有许多细节自己没有掌握，还需要继续努力。">
+<meta property="article:published_time" content="2019-03-20T13:15:37.000Z">
+<meta property="article:modified_time" content="2020-04-17T02:43:15.431Z">
+<meta property="article:author" content="zhDing">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://meetzhding.github.io/2019/03/20/%E8%85%BE%E8%AE%AF%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E7%94%9F%E9%9D%A2%E8%AF%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>腾讯前端实习生面试 | 变换思维</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">变换思维</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://meetzhding.github.io/2019/03/20/%E8%85%BE%E8%AE%AF%E5%89%8D%E7%AB%AF%E5%AE%9E%E4%B9%A0%E7%94%9F%E9%9D%A2%E8%AF%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhDing">
+      <meta itemprop="description" content="兴来随笔">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="变换思维">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          腾讯前端实习生面试
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-03-20 21:15:37" itemprop="dateCreated datePublished" datetime="2019-03-20T21:15:37+08:00">2019-03-20</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-17 10:43:15" itemprop="dateModified" datetime="2020-04-17T10:43:15+08:00">2020-04-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>腾讯云中间件前端团队面试</p>
+<p>面试持续了整整一个小时，发现还是有许多细节自己没有掌握，还需要继续努力。</p>
+<a id="more"></a>
+
+<h3 id="接触前端有多久了"><a href="#接触前端有多久了" class="headerlink" title="接触前端有多久了"></a>接触前端有多久了</h3><h3 id="js里面闭包的基本原理"><a href="#js里面闭包的基本原理" class="headerlink" title="js里面闭包的基本原理"></a>js里面闭包的基本原理</h3><p><a href="https://www.liaoxuefeng.com/wiki/001434446689867b27157e896e74d51a89c25cc8b43bdb3000/00143449934543461c9d5dfeeb848f5b72bd012e1113d15000" target="_blank" rel="noopener">js教程 闭包</a><br>闭包就是能够读取其所属函数内部变量的函数。<br>通过定义函数中的函数，可以达到封装私有变量的目的。</p>
+<h3 id="ie8数组不支持forEach操作，怎么做兼容"><a href="#ie8数组不支持forEach操作，怎么做兼容" class="headerlink" title="ie8数组不支持forEach操作，怎么做兼容"></a>ie8数组不支持forEach操作，怎么做兼容</h3><p>在调用forEach之前，先对Array.prototype.forEach进行定义。</p>
+<h3 id="ES6里面的let和之前的var有什么区别"><a href="#ES6里面的let和之前的var有什么区别" class="headerlink" title="ES6里面的let和之前的var有什么区别"></a>ES6里面的let和之前的var有什么区别</h3><p><a href="http://es6.ruanyifeng.com/#docs/let" target="_blank" rel="noopener">ES6中的let</a><br>ES6引入了块级作用域，let定义的变量只在块内有效，且不允许重复声明。</p>
+<h3 id="async函数的返回值是什么"><a href="#async函数的返回值是什么" class="headerlink" title="async函数的返回值是什么"></a>async函数的返回值是什么</h3><p>async函数是Generator函数的语法糖，返回的值是Promise对象</p>
+<h3 id="await会不会让代码堵塞住"><a href="#await会不会让代码堵塞住" class="headerlink" title="await会不会让代码堵塞住"></a>await会不会让代码堵塞住</h3><p>await会让同步代码堵塞住，如果需要在Promise完成后执行某操作，应当使用then</p>
+<h3 id="如果await时，有其他任务执行（定时器），会不会受到影响"><a href="#如果await时，有其他任务执行（定时器），会不会受到影响" class="headerlink" title="如果await时，有其他任务执行（定时器），会不会受到影响"></a>如果await时，有其他任务执行（定时器），会不会受到影响</h3><p><a href="http://www.ruanyifeng.com/blog/2018/02/node-event-loop.html" target="_blank" rel="noopener">Node定时器详解</a><br><a href="https://segmentfault.com/a/1190000013660033?utm_source=channel-hottest" target="_blank" rel="noopener">浏览器和Node不同的事件循环</a><br><a href="https://cnodejs.org/topic/5a9108d78d6e16e56bb80882" target="_blank" rel="noopener">不要混淆nodejs和浏览器中的event loop</a></p>
+<p>await执行时，实质上是让出了CPU资源给Promise函数的同步代码部分。<br>定时器会受到影响，详细情况可参见nodejs时间循环机制。<br>以下是一个简单的例子，无论是否有await, setTimeout中的内容都会受到影响，await影响的是Promise的回调与await之后的代码的执行顺序。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">main</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'程序启动:\n'</span> + <span class="keyword">new</span> <span class="built_in">Date</span>().toISOString());</span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Timeout 100执行时间:\n'</span> + <span class="keyword">new</span> <span class="built_in">Date</span>().toISOString());</span><br><span class="line">  &#125;,<span class="number">100</span>)</span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Timeout 0执行时间:\n'</span> + <span class="keyword">new</span> <span class="built_in">Date</span>().toISOString());</span><br><span class="line">  &#125;,<span class="number">0</span>)</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'setTimeout执行完成:\n'</span> + <span class="keyword">new</span> <span class="built_in">Date</span>().toISOString());</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">await</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resovle</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>; i&lt; <span class="number">1000000000</span>; i++)&#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Promise中同步代码执行完:\n'</span> + <span class="keyword">new</span> <span class="built_in">Date</span>().toISOString());</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span>=&gt;</span>resovle(<span class="number">1</span>),<span class="number">2000</span>);</span><br><span class="line">  &#125;).then(<span class="function">(<span class="params">res</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'回调执行时间:\n'</span> + <span class="keyword">new</span> <span class="built_in">Date</span>().toISOString());</span><br><span class="line">  &#125;)</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'同步代码结尾:\n'</span> + <span class="keyword">new</span> <span class="built_in">Date</span>().toISOString())</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">main()</span><br></pre></td></tr></table></figure>
+
+<h3 id="定时器是不是准时的"><a href="#定时器是不是准时的" class="headerlink" title="定时器是不是准时的"></a>定时器是不是准时的</h3><p>从上面一个例子我们已经可以看到，定时器并不是准时的。<br>而且即使没有Promise函数存在，由于内部实现，setTimeout(()=&gt;{},0)也无法使得函数准时执行。</p>
+<h3 id="js实现拦截所有链接点击，后台显示链接网址"><a href="#js实现拦截所有链接点击，后台显示链接网址" class="headerlink" title="js实现拦截所有链接点击，后台显示链接网址"></a>js实现拦截所有链接点击，后台显示链接网址</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"http://www.baidu.com"</span>&gt;</span>baidu<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"http://www.google.com"</span>&gt;</span>google<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">let</span> all_a = <span class="built_in">document</span>.querySelectorAll(<span class="string">'a'</span>);</span></span><br><span class="line"><span class="actionscript">        <span class="keyword">for</span>(<span class="keyword">const</span> a of all_a)&#123;</span></span><br><span class="line"><span class="javascript">            a.onclick = <span class="function">(<span class="params">e</span>)=&gt;</span>&#123;</span></span><br><span class="line">                e.preventDefault();</span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(e);</span></span><br><span class="line"><span class="javascript">                <span class="built_in">console</span>.log(a.href);</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="对DOM和BOM了解多少"><a href="#对DOM和BOM了解多少" class="headerlink" title="对DOM和BOM了解多少"></a>对DOM和BOM了解多少</h3><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Document_Object_Model" target="_blank" rel="noopener">mdn dom</a></p>
+<h3 id="听说过事件冒泡机制吗"><a href="#听说过事件冒泡机制吗" class="headerlink" title="听说过事件冒泡机制吗"></a>听说过事件冒泡机制吗</h3><p><a href="https://baike.baidu.com/item/%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1/4211429?fr=aladdin" target="_blank" rel="noopener">事件冒泡 百科</a></p>
+<h3 id="用BOM，DOM找出网页所有链接"><a href="#用BOM，DOM找出网页所有链接" class="headerlink" title="用BOM，DOM找出网页所有链接"></a>用BOM，DOM找出网页所有链接</h3><p>此问题是对前几个问题的引导，参见题目9</p>
+<h3 id="浏览器的同源策略有了解过吗"><a href="#浏览器的同源策略有了解过吗" class="headerlink" title="浏览器的同源策略有了解过吗"></a>浏览器的同源策略有了解过吗</h3><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/Security/Same-origin_policy" target="_blank" rel="noopener">mdn 同源策略</a></p>
+<h3 id="为什么从koa换成了express"><a href="#为什么从koa换成了express" class="headerlink" title="为什么从koa换成了express"></a>为什么从koa换成了express</h3><h3 id="koa和express的差异"><a href="#koa和express的差异" class="headerlink" title="koa和express的差异"></a>koa和express的差异</h3><h3 id="明明koa功能更强大，为什么还是用了express"><a href="#明明koa功能更强大，为什么还是用了express" class="headerlink" title="明明koa功能更强大，为什么还是用了express"></a>明明koa功能更强大，为什么还是用了express</h3><h3 id="nodejs如何利用服务器的多核性能"><a href="#nodejs如何利用服务器的多核性能" class="headerlink" title="nodejs如何利用服务器的多核性能"></a>nodejs如何利用服务器的多核性能</h3><h3 id="nodejs在网络io方面如何利用了多核性能"><a href="#nodejs在网络io方面如何利用了多核性能" class="headerlink" title="nodejs在网络io方面如何利用了多核性能"></a>nodejs在网络io方面如何利用了多核性能</h3><h3 id="了解纯node实现多进程多核吗"><a href="#了解纯node实现多进程多核吗" class="headerlink" title="了解纯node实现多进程多核吗"></a>了解纯node实现多进程多核吗</h3><h3 id="http状态码"><a href="#http状态码" class="headerlink" title="http状态码"></a>http状态码</h3><h3 id="304码的相关情况"><a href="#304码的相关情况" class="headerlink" title="304码的相关情况"></a>304码的相关情况</h3><h3 id="cookie和session区别"><a href="#cookie和session区别" class="headerlink" title="cookie和session区别"></a>cookie和session区别</h3><h3 id="原生表单提交http请求内容的组织"><a href="#原生表单提交http请求内容的组织" class="headerlink" title="原生表单提交http请求内容的组织"></a>原生表单提交http请求内容的组织</h3><p><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/form" target="_blank" rel="noopener">mdn form</a></p>
+<h3 id="浏览器怎么确定https证书是安全的"><a href="#浏览器怎么确定https证书是安全的" class="headerlink" title="浏览器怎么确定https证书是安全的"></a>浏览器怎么确定https证书是安全的</h3><p>查询浏览器信任的证书</p>
+<h3 id="了解XSS吗"><a href="#了解XSS吗" class="headerlink" title="了解XSS吗"></a>了解XSS吗</h3><h3 id="如何防范XSS，在vue中有想过这个问题吗"><a href="#如何防范XSS，在vue中有想过这个问题吗" class="headerlink" title="如何防范XSS，在vue中有想过这个问题吗"></a>如何防范XSS，在vue中有想过这个问题吗</h3><p><a href="https://developer.mozilla.org/zh-CN/docs/Glossary/Cross-site_scripting" target="_blank" rel="noopener">mdn XSS</a></p>
+<h3 id="讲一讲CSRF攻击，如何防范"><a href="#讲一讲CSRF攻击，如何防范" class="headerlink" title="讲一讲CSRF攻击，如何防范"></a>讲一讲CSRF攻击，如何防范</h3><p><a href="https://zh.wikipedia.org/wiki/%E8%B7%A8%E7%AB%99%E8%AF%B7%E6%B1%82%E4%BC%AA%E9%80%A0" target="_blank" rel="noopener">CSRF WIKI</a></p>
+<h3 id="VUE双向绑定，数据流单向流动"><a href="#VUE双向绑定，数据流单向流动" class="headerlink" title="VUE双向绑定，数据流单向流动"></a>VUE双向绑定，数据流单向流动</h3><p><a href="https://cn.vuejs.org/v2/guide/reactivity.html" target="_blank" rel="noopener">深入响应式原理</a><br><a href="https://cn.vuejs.org/v2/guide/components-props.html#%E5%8D%95%E5%90%91%E6%95%B0%E6%8D%AE%E6%B5%81" target="_blank" rel="noopener">单向数据流</a></p>
+<h3 id="最有代表性的项目"><a href="#最有代表性的项目" class="headerlink" title="最有代表性的项目"></a>最有代表性的项目</h3><h3 id="你有什么问题想问我"><a href="#你有什么问题想问我" class="headerlink" title="你有什么问题想问我"></a>你有什么问题想问我</h3>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/03/13/%E5%AE%89%E8%A3%85node-sass%E7%9A%84%E6%96%B9%E6%B3%95/" rel="prev" title="安装node-sass的方法">
+      <i class="fa fa-chevron-left"></i> 安装node-sass的方法
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/03/27/%E8%85%BE%E8%AE%AF%E4%BA%91%E4%B8%89%E9%9D%A2/" rel="next" title="腾讯云三面">
+      腾讯云三面 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#接触前端有多久了"><span class="nav-number">1.</span> <span class="nav-text">接触前端有多久了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#js里面闭包的基本原理"><span class="nav-number">2.</span> <span class="nav-text">js里面闭包的基本原理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ie8数组不支持forEach操作，怎么做兼容"><span class="nav-number">3.</span> <span class="nav-text">ie8数组不支持forEach操作，怎么做兼容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6里面的let和之前的var有什么区别"><span class="nav-number">4.</span> <span class="nav-text">ES6里面的let和之前的var有什么区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#async函数的返回值是什么"><span class="nav-number">5.</span> <span class="nav-text">async函数的返回值是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#await会不会让代码堵塞住"><span class="nav-number">6.</span> <span class="nav-text">await会不会让代码堵塞住</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如果await时，有其他任务执行（定时器），会不会受到影响"><span class="nav-number">7.</span> <span class="nav-text">如果await时，有其他任务执行（定时器），会不会受到影响</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定时器是不是准时的"><span class="nav-number">8.</span> <span class="nav-text">定时器是不是准时的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#js实现拦截所有链接点击，后台显示链接网址"><span class="nav-number">9.</span> <span class="nav-text">js实现拦截所有链接点击，后台显示链接网址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#对DOM和BOM了解多少"><span class="nav-number">10.</span> <span class="nav-text">对DOM和BOM了解多少</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#听说过事件冒泡机制吗"><span class="nav-number">11.</span> <span class="nav-text">听说过事件冒泡机制吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用BOM，DOM找出网页所有链接"><span class="nav-number">12.</span> <span class="nav-text">用BOM，DOM找出网页所有链接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器的同源策略有了解过吗"><span class="nav-number">13.</span> <span class="nav-text">浏览器的同源策略有了解过吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么从koa换成了express"><span class="nav-number">14.</span> <span class="nav-text">为什么从koa换成了express</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#koa和express的差异"><span class="nav-number">15.</span> <span class="nav-text">koa和express的差异</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#明明koa功能更强大，为什么还是用了express"><span class="nav-number">16.</span> <span class="nav-text">明明koa功能更强大，为什么还是用了express</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nodejs如何利用服务器的多核性能"><span class="nav-number">17.</span> <span class="nav-text">nodejs如何利用服务器的多核性能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nodejs在网络io方面如何利用了多核性能"><span class="nav-number">18.</span> <span class="nav-text">nodejs在网络io方面如何利用了多核性能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#了解纯node实现多进程多核吗"><span class="nav-number">19.</span> <span class="nav-text">了解纯node实现多进程多核吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#http状态码"><span class="nav-number">20.</span> <span class="nav-text">http状态码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#304码的相关情况"><span class="nav-number">21.</span> <span class="nav-text">304码的相关情况</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#cookie和session区别"><span class="nav-number">22.</span> <span class="nav-text">cookie和session区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#原生表单提交http请求内容的组织"><span class="nav-number">23.</span> <span class="nav-text">原生表单提交http请求内容的组织</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#浏览器怎么确定https证书是安全的"><span class="nav-number">24.</span> <span class="nav-text">浏览器怎么确定https证书是安全的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#了解XSS吗"><span class="nav-number">25.</span> <span class="nav-text">了解XSS吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何防范XSS，在vue中有想过这个问题吗"><span class="nav-number">26.</span> <span class="nav-text">如何防范XSS，在vue中有想过这个问题吗</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#讲一讲CSRF攻击，如何防范"><span class="nav-number">27.</span> <span class="nav-text">讲一讲CSRF攻击，如何防范</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#VUE双向绑定，数据流单向流动"><span class="nav-number">28.</span> <span class="nav-text">VUE双向绑定，数据流单向流动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最有代表性的项目"><span class="nav-number">29.</span> <span class="nav-text">最有代表性的项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#你有什么问题想问我"><span class="nav-number">30.</span> <span class="nav-text">你有什么问题想问我</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zhDing</p>
+  <div class="site-description" itemprop="description">兴来随笔</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhDing</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

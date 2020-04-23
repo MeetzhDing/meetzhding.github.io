@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"meetzhding.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Unicode（统一码、万国码、单一码）是计算机科学领域里的一项业界标准，包括字符集、编码方案等。Unicode 是为了解决传统的字符编码方案的局限而产生的，它为每种语言中的每个字符设定了统一并且唯一的二进制编码，以满足跨语言、跨平台进行文本转换、处理的要求。 在平常的生活中，我一般不会直接接触到Unicode编码，而是使用常见的 Unicode 实现 UTF-8，它最为显著地特点就是可变长度字符">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unicode编码">
+<meta property="og:url" content="https://meetzhding.github.io/2019/01/19/unicode%E7%BC%96%E7%A0%81/index.html">
+<meta property="og:site_name" content="变换思维">
+<meta property="og:description" content="Unicode（统一码、万国码、单一码）是计算机科学领域里的一项业界标准，包括字符集、编码方案等。Unicode 是为了解决传统的字符编码方案的局限而产生的，它为每种语言中的每个字符设定了统一并且唯一的二进制编码，以满足跨语言、跨平台进行文本转换、处理的要求。 在平常的生活中，我一般不会直接接触到Unicode编码，而是使用常见的 Unicode 实现 UTF-8，它最为显著地特点就是可变长度字符">
+<meta property="article:published_time" content="2019-01-19T12:25:29.000Z">
+<meta property="article:modified_time" content="2020-04-17T02:43:15.427Z">
+<meta property="article:author" content="zhDing">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://meetzhding.github.io/2019/01/19/unicode%E7%BC%96%E7%A0%81/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>Unicode编码 | 变换思维</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">变换思维</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://meetzhding.github.io/2019/01/19/unicode%E7%BC%96%E7%A0%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhDing">
+      <meta itemprop="description" content="兴来随笔">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="变换思维">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Unicode编码
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-01-19 20:25:29" itemprop="dateCreated datePublished" datetime="2019-01-19T20:25:29+08:00">2019-01-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-17 10:43:15" itemprop="dateModified" datetime="2020-04-17T10:43:15+08:00">2020-04-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>Unicode（统一码、万国码、单一码）是计算机科学领域里的一项业界标准，包括字符集、编码方案等。Unicode 是为了解决传统的字符编码方案的局限而产生的，它为每种语言中的每个字符设定了统一并且唯一的二进制编码，以满足跨语言、跨平台进行文本转换、处理的要求。</p>
+<p>在平常的生活中，我一般不会直接接触到Unicode编码，而是使用常见的 Unicode 实现 UTF-8，它最为显著地特点就是可变长度字符编码，通过可变长度进行编码，可以使用更小的空间存储那些常见的字符，节约磁盘空间与传输消耗。</p>
+<a id="more"></a>
+
+<p>最近同学遇到了这样一个问题，将一个 PDF 文件转换成为 TXT 文件，我使用了几个PDF文件转换工具，最终得到了需要的TXT文件。这个时候，有趣的事情发生了，转换结果文件中有许多汉字有所重复，这些汉字看起来有着明显的不同，但是他们总是紧紧相连。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">⼗十⽉月⾰革命给中国送来了了⻢马克思列列宁主义</span><br><span class="line">帮助中国的先进分⼦子开始⽤用⽆无产阶级的世界观作为观察国家命运的⼯工具</span><br><span class="line">中国⾰革命从此有了了科学的指导思想</span><br></pre></td></tr></table></figure>
+<br>
+
+<h2 id="排除了编码问题"><a href="#排除了编码问题" class="headerlink" title="排除了编码问题"></a>排除了编码问题</h2><p>在得到这个文本以后，我开始开始以为是由于编码方式问题带来的异常，我尝试使用VSCode对文本进行编码的转换工作，但是在不同的编码之间反复转换之后，我发现每个相邻的重字都是独立的个体。</p>
+<p>我需要删去文本中的异常汉字，得到与原文的PDF相一致的内容，而不是夹杂着重复汉字影响阅读的句子。</p>
+<h2 id="查询不同汉字的编码"><a href="#查询不同汉字的编码" class="headerlink" title="查询不同汉字的编码"></a>查询不同汉字的编码</h2><p>由于我没有办法通过打字的方式直接打出不同外观的两个汉字，我使用了复制粘贴的方式，将连续的改观略微不同的汉字进行了搜索，这个时候，我注意到了尽管看起来是相同的汉字，但是他们的UTF-8编码是不同的。</p>
+<p>在搜索引擎中搜索 <em>⼗十⽉月</em> ,在搜索完成的页面中，就可以看到地址栏中的汉字编码了。<br>（如果显示的依然是汉字，将网址复制后再粘贴就可以了）<br>或者也可使用一编码转换网站，通过汉字转换成为编码。</p>
+<pre><code>https://www.baidu.com/s?ie=UTF-8&amp;wd=%E2%BC%97%E5%8D%81%E2%BD%89%E6%9C%88</code></pre><p>对于字符的搜索，会转换对应的编码，这里的编码方式是UTF-8，可以看到相同的汉字对应的是不同的编码内容。</p>
+<table>
+<thead>
+<tr>
+<th align="center">汉字</th>
+<th align="center">UTF-8编码</th>
+<th align="center">Unicode编码</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">⼗</td>
+<td align="center">%E2%BC%97</td>
+<td align="center">U+2F17</td>
+</tr>
+<tr>
+<td align="center">十</td>
+<td align="center">%E5%8D%81</td>
+<td align="center">U+5341</td>
+</tr>
+<tr>
+<td align="center">⽉</td>
+<td align="center">%E2%BD%89</td>
+<td align="center">U+2F49</td>
+</tr>
+<tr>
+<td align="center">月</td>
+<td align="center">%E6%9C%88</td>
+<td align="center">U+6708</td>
+</tr>
+<tr>
+<td align="center">⻢</td>
+<td align="center">%E2%BB%A2</td>
+<td align="center">U+2EE2</td>
+</tr>
+<tr>
+<td align="center">马</td>
+<td align="center">%E9%A9%AC</td>
+<td align="center">U+9A6C</td>
+</tr>
+<tr>
+<td align="center">金</td>
+<td align="center">%EF%A4%8A</td>
+<td align="center">U+F90A</td>
+</tr>
+<tr>
+<td align="center">金</td>
+<td align="center">%E9%87%91</td>
+<td align="center">U+91D1</td>
+</tr>
+</tbody></table>
+<br>
+
+<hr>
+<h2 id="为什么会发生此现象"><a href="#为什么会发生此现象" class="headerlink" title="为什么会发生此现象"></a>为什么会发生此现象</h2><p>在一个名为CodePoints的网站，我找到了答案，<a href="https://codepoints.net/basic_multilingual_plane" target="_blank" rel="noopener"><strong>这个链接</strong></a>给出了Unicode修订时划分的基本类别，不同的类别分别对应了不同的国家文字，标点符号，特殊符号等。<br><br>（CodePoints有一个非常好用的功能，对于每一个字符，详情页都有 Related Characters 部分，给出了容易混淆的字符，这正是此问题的原因所在。）</p>
+<p>由于亚洲文化的交融，中日韩三国的文字有着许多的相同之处，因此在设计Unicode编码时，对与相同的汉字进行了编码合并，形成了中日韩统一表意文字（CJK），但是由于汉字的种类复杂，又对于CJK这个集合划分成为了多个小类，在CodePoints的基本类别表中，我们可以看到以下几个分类。</p>
+<table>
+<thead>
+<tr>
+<th align="center">类名</th>
+<th align="center">用途</th>
+<th align="center">编码范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">CJK Radicals Supplement</td>
+<td align="center">部首补充</td>
+<td align="center">(U+2E80 to U+2EFF)</td>
+</tr>
+<tr>
+<td align="center">CJK Symbols and Punctuation</td>
+<td align="center">符号标点</td>
+<td align="center">(U+3000 to U+303F)</td>
+</tr>
+<tr>
+<td align="center">CJK Strokes</td>
+<td align="center">文字比划</td>
+<td align="center">(U+31C0 to U+31EF)</td>
+</tr>
+<tr>
+<td align="center">Enclosed CJK Letters and Months</td>
+<td align="center">圈形状字母及月份</td>
+<td align="center">(U+3200 to U+32FF)</td>
+</tr>
+<tr>
+<td align="center">CJK Compatibility</td>
+<td align="center">兼容字符</td>
+<td align="center">(U+3300 to U+33FF)</td>
+</tr>
+<tr>
+<td align="center">CJK Unified Ideographs Extension A</td>
+<td align="center">统一表意文字扩展A</td>
+<td align="center">(U+3400 to U+4DBF)</td>
+</tr>
+<tr>
+<td align="center">CJK Unified Ideographs</td>
+<td align="center">统一表意文字</td>
+<td align="center">(U+4E00 to U+9FFF)</td>
+</tr>
+<tr>
+<td align="center">CJK Compatibility Ideographs</td>
+<td align="center">兼容表意文字</td>
+<td align="center">(U+F900 to U+FAFF)</td>
+</tr>
+<tr>
+<td align="center">CJK Compatibility Forms</td>
+<td align="center">兼容形式</td>
+<td align="center">(U+FE30 to U+FE4F)</td>
+</tr>
+</tbody></table>
+<p>除了这些CJK小类以外，还有一个特别的部分<br></p>
+<table>
+<thead>
+<tr>
+<th align="center">类名</th>
+<th align="center">用途</th>
+<th align="center">编码范围</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a href="https://codepoints.net/kangxi_radicals" target="_blank" rel="noopener">康熙部首(Kangxi Radicals)</a></td>
+<td align="center">旧时汉字的部首部分</td>
+<td align="center">(U+2F00 to U+2FDF)</td>
+</tr>
+</tbody></table>
+<p>我们日常使用的大部分汉字，都属于两个子集，分别是 <strong>统一表意文字</strong>（CJK Unified Ideographs） 和 <strong>统一表意文字扩展A</strong>（CJK Unified Ideographs Extension A），但是还有一部分汉字，在其他的子集中有着几乎一样的外观，但是起着不同的作用。现在就让我们把之前的汉字编码表补充完整。</p>
+<table>
+<thead>
+<tr>
+<th align="center">汉字</th>
+<th align="center">UTF-8编码</th>
+<th align="center">Unicode编码</th>
+<th align="center">所属集</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">⼗</td>
+<td align="center">%E2%BC%97</td>
+<td align="center">U+2F17</td>
+<td align="center">康熙部首</td>
+</tr>
+<tr>
+<td align="center">十</td>
+<td align="center">%E5%8D%81</td>
+<td align="center">U+5341</td>
+<td align="center">统一表意文字</td>
+</tr>
+<tr>
+<td align="center">⽉</td>
+<td align="center">%E2%BD%89</td>
+<td align="center">U+2F49</td>
+<td align="center">康熙部首</td>
+</tr>
+<tr>
+<td align="center">月</td>
+<td align="center">%E6%9C%88</td>
+<td align="center">U+6708</td>
+<td align="center">统一表意文字</td>
+</tr>
+<tr>
+<td align="center">⻢</td>
+<td align="center">%E2%BB%A2</td>
+<td align="center">U+2EE2</td>
+<td align="center">部首补充</td>
+</tr>
+<tr>
+<td align="center">马</td>
+<td align="center">%E9%A9%AC</td>
+<td align="center">U+9A6C</td>
+<td align="center">统一表意文字</td>
+</tr>
+<tr>
+<td align="center">金</td>
+<td align="center">%EF%A4%8A</td>
+<td align="center">U+F90A</td>
+<td align="center">兼容表意文字</td>
+</tr>
+<tr>
+<td align="center">金</td>
+<td align="center">%E9%87%91</td>
+<td align="center">U+91D1</td>
+<td align="center">统一表意文字</td>
+</tr>
+</tbody></table>
+<p>但是在文档转换的过程中，基于 OCR 原理的转换工具并不能很好地判断出字符的 Unicode 编码，出于保留完整信息的目的，生成的 TXT 文件中就同时囊括了各种相符合的情况了，最终生成的文本内容就包含了许多“同样的”汉字了。</p>
+<h2 id="如何去除重复汉字"><a href="#如何去除重复汉字" class="headerlink" title="如何去除重复汉字"></a>如何去除重复汉字</h2><p>引起汉字重复的三个主要子集是 <strong>康熙部首</strong> &nbsp; <strong>CJK部首补充</strong> &nbsp; <strong>兼容表意文字</strong></p>
+<p>这里使用函数来判断字符是否属于某一类别，函数实现非常简单。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 参见https://codepoints.net/kangxi_radicals</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_Kangxi_Radicals</span><span class="params">(ch)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> type(ch) != type(<span class="string">''</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">if</span> len(ch) != <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="comment"># uni 格式为b'\\uF900'</span></span><br><span class="line">    uni = ch.encode(<span class="string">'Unicode-escape'</span>)</span><br><span class="line">    <span class="keyword">if</span> len(uni) &lt; <span class="number">6</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="comment"># 去除首部的b'\\ 和 尾部的'</span></span><br><span class="line">    <span class="comment"># 再添加 0x 开头代表16进制</span></span><br><span class="line">    uni_hex = <span class="string">'0x'</span> + str(uni)[<span class="number">-5</span>:<span class="number">-1</span>]</span><br><span class="line">    <span class="keyword">if</span> <span class="number">0x2F00</span> &lt;= int(uni_hex, <span class="number">16</span>) &lt;= <span class="number">0x2FDF</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 参见https://codepoints.net/cjk_radicals_supplement</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_CJK_Radicals_Supplement</span><span class="params">(ch)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> type(ch) != type(<span class="string">''</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">if</span> len(ch) != <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="comment"># uni 格式为b'\\uF900'</span></span><br><span class="line">    uni = ch.encode(<span class="string">'Unicode-escape'</span>)</span><br><span class="line">    <span class="keyword">if</span> len(uni) &lt; <span class="number">6</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="comment"># 去除首部的b'\\ 和 尾部的'</span></span><br><span class="line">    <span class="comment"># 再添加 0x 开头代表16进制</span></span><br><span class="line">    uni_hex = <span class="string">'0x'</span> + str(uni)[<span class="number">-5</span>:<span class="number">-1</span>]</span><br><span class="line">    <span class="keyword">if</span> <span class="number">0x2E80</span> &lt;= int(uni_hex, <span class="number">16</span>) &lt;= <span class="number">0x2EFF</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># 参见https://codepoints.net/cjk_compatibility_ideographs</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_CJK_Compatibility_Ideographs</span><span class="params">(ch)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> type(ch) != type(<span class="string">''</span>):</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="keyword">if</span> len(ch) != <span class="number">1</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="comment"># uni 格式为b'\\uF900'</span></span><br><span class="line">    uni = ch.encode(<span class="string">'Unicode-escape'</span>)</span><br><span class="line">    <span class="keyword">if</span> len(uni) &lt; <span class="number">6</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    <span class="comment"># 去除首部的b'\\ 和 尾部的'</span></span><br><span class="line">    <span class="comment"># 再添加 0x 开头代表16进制</span></span><br><span class="line">    uni_hex = <span class="string">'0x'</span> + str(uni)[<span class="number">-5</span>:<span class="number">-1</span>]</span><br><span class="line">    <span class="keyword">if</span> <span class="number">0xF900</span> &lt;= int(uni_hex, <span class="number">16</span>) &lt;= <span class="number">0xFAFF</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+
+
+<p>有了这三个函数之后，再通过一个主函数进行调用，如果不属于这些分类，就写入到新的文件中。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">(filename=None)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> filename==<span class="literal">None</span>:</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    <span class="keyword">with</span> open(filename, <span class="string">'r'</span>, encoding=<span class="string">'utf8'</span>) <span class="keyword">as</span> fr:</span><br><span class="line">        content = fr.read()</span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'new_'</span> + filename, <span class="string">'w'</span>, encoding=<span class="string">'utf8'</span>) <span class="keyword">as</span> fw:</span><br><span class="line">        <span class="keyword">for</span> ch <span class="keyword">in</span> content:</span><br><span class="line">            <span class="keyword">if</span>  <span class="keyword">not</span> is_Kangxi_Radicals(ch) \</span><br><span class="line">                <span class="keyword">and</span> <span class="keyword">not</span> is_CJK_Compatibility_Ideographs(ch) \</span><br><span class="line">                <span class="keyword">and</span> <span class="keyword">not</span> is_CJK_Radicals_Supplement(ch):</span><br><span class="line">                    fw.write(ch)</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/12/31/%E9%98%85%E8%AF%BBwtfpython/" rel="prev" title="阅读wtfPython">
+      <i class="fa fa-chevron-left"></i> 阅读wtfPython
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/01/20/%E8%A1%A8%E8%BE%BE%E6%AC%B2/" rel="next" title="表达欲">
+      表达欲 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#排除了编码问题"><span class="nav-number">1.</span> <span class="nav-text">排除了编码问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询不同汉字的编码"><span class="nav-number">2.</span> <span class="nav-text">查询不同汉字的编码</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么会发生此现象"><span class="nav-number">3.</span> <span class="nav-text">为什么会发生此现象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何去除重复汉字"><span class="nav-number">4.</span> <span class="nav-text">如何去除重复汉字</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zhDing</p>
+  <div class="site-description" itemprop="description">兴来随笔</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhDing</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

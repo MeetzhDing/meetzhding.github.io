@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"meetzhding.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="写过一些零散的代码，但是因为代码量小，重写快，往往都会直接把代码的文件删去，当下次又有重复的需求的时候，可能就需要再次重写。现在想想，可以把这些代码放在博客上面，作为一个简单的参照。 这是一篇有关于爬虫的个人记录，其中对于曾经用过的BeautifulSoup, selenium, request, asyncio库进行一个记录。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python爬虫使用">
+<meta property="og:url" content="https://meetzhding.github.io/2018/12/30/Python%E7%88%AC%E8%99%AB%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="变换思维">
+<meta property="og:description" content="写过一些零散的代码，但是因为代码量小，重写快，往往都会直接把代码的文件删去，当下次又有重复的需求的时候，可能就需要再次重写。现在想想，可以把这些代码放在博客上面，作为一个简单的参照。 这是一篇有关于爬虫的个人记录，其中对于曾经用过的BeautifulSoup, selenium, request, asyncio库进行一个记录。">
+<meta property="article:published_time" content="2018-12-30T04:28:30.000Z">
+<meta property="article:modified_time" content="2020-04-17T02:43:15.426Z">
+<meta property="article:author" content="zhDing">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://meetzhding.github.io/2018/12/30/Python%E7%88%AC%E8%99%AB%E4%BD%BF%E7%94%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>Python爬虫使用 | 变换思维</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">变换思维</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://meetzhding.github.io/2018/12/30/Python%E7%88%AC%E8%99%AB%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhDing">
+      <meta itemprop="description" content="兴来随笔">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="变换思维">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Python爬虫使用
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-12-30 12:28:30" itemprop="dateCreated datePublished" datetime="2018-12-30T12:28:30+08:00">2018-12-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-17 10:43:15" itemprop="dateModified" datetime="2020-04-17T10:43:15+08:00">2020-04-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>写过一些零散的代码，但是因为代码量小，重写快，往往都会直接把代码的文件删去，当下次又有重复的需求的时候，可能就需要再次重写。<br>现在想想，可以把这些代码放在博客上面，作为一个简单的参照。</p>
+<p>这是一篇有关于爬虫的个人记录，其中对于曾经用过的BeautifulSoup, selenium, request, asyncio库进行一个记录。</p>
+<a id="more"></a>
+<br>
+
+<h2 id="爬取网站中的新闻稿"><a href="#爬取网站中的新闻稿" class="headerlink" title="爬取网站中的新闻稿"></a>爬取网站中的新闻稿</h2><p>学校的网站没有做反爬处理，新闻稿的格式也十分规整，所以可以直接使用request来进行请求，得到网页的返回内容。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> os.path</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line"><span class="comment"># absdir = os.path.dirname(os.path.abspath(__file__))</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 网页抓取内容的存放文件夹</span></span><br><span class="line">target_dir = <span class="string">'D:/src_dir/'</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">(url, base_url)</span>:</span></span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">'User-Agent'</span>: <span class="string">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.67 Safari/537.36'</span></span><br><span class="line">    &#125;</span><br><span class="line">    resp = requests.get(url, headers=headers)</span><br><span class="line">    <span class="keyword">if</span> resp.status_code != <span class="number">200</span>:</span><br><span class="line">        print(<span class="string">'Error:'</span>, resp.status_code)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">    html_doc = resp.content</span><br><span class="line">    soup = BeautifulSoup(html_doc, <span class="string">'html.parser'</span>)</span><br><span class="line">    content = soup.find_all(<span class="string">'div'</span>, class_=<span class="string">'infobox'</span>)[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 对于网页中的src=/开头的img资源，将网页的网址前添加上base_url</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> content.find_all(<span class="string">'img'</span>):</span><br><span class="line">        <span class="keyword">if</span> i[<span class="string">'src'</span>][<span class="number">0</span>] == <span class="string">'/'</span>:</span><br><span class="line">            i[<span class="string">'src'</span>] = base_url + i.get(<span class="string">'src'</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 获得新闻稿的标题</span></span><br><span class="line">    title = content.find_all(<span class="string">'h1'</span>, class_=<span class="string">'arti_title'</span>)[<span class="number">0</span>].get_text()</span><br><span class="line">    <span class="comment"># 获得新闻稿的日期</span></span><br><span class="line">    arti_update = content.find_all(<span class="string">'span'</span>, class_=<span class="string">'arti_update'</span>)[<span class="number">0</span>].get_text()</span><br><span class="line">    data = arti_update.split(<span class="string">'：'</span>)[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 文件以标题和日期进行命名</span></span><br><span class="line">    filename = data + title + <span class="string">'.html'</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">with</span> open(filename, <span class="string">'w'</span> , encoding=<span class="string">'utf8'</span>) <span class="keyword">as</span> f:</span><br><span class="line">        f.write(str(content))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># 网页中的src链接以base_url作为基准获得各类资源</span></span><br><span class="line">    base_url = <span class="string">'http://ci.hfut.edu.cn'</span></span><br><span class="line">    url = <span class="string">'http://ci.hfut.edu.cn/2018/1203/c3962a194604/page.htm'</span></span><br><span class="line">    main(url, base_url)</span><br></pre></td></tr></table></figure>
+
+<p>整个网页抓取的过程非常简单，其中唯一特殊的操作，就是将img的src路径进行更改，将原本为 src=/* 替换为 src=/base_url/*</p>
+<hr>
+<p><br><br><br></p>
+<h2 id="通用的文档格式转换工具Pandoc"><a href="#通用的文档格式转换工具Pandoc" class="headerlink" title="通用的文档格式转换工具Pandoc"></a>通用的文档格式转换工具<a href="https://github.com/jgm/pandoc" target="_blank" rel="noopener">Pandoc</a></h2><p>通过Pandoc，我们可以将得到的html文件直接转换成为word文档。最为重要的是，对于html内的链接，Pandoc会进行下载，直接放置到word文档的对应位置。</p>
+<p>之前在爬取网页时，将html内相对路径的src转换为绝对路径，也就是为了便于Pandoc进行自动化图片抓取。</p>
+<p>首先介绍一下Pandoc的基本使用方法</p>
+<pre><code>pandoc --reference-doc D:/template.docx {src_file} -o {output_file}&apos;</code></pre><p>这里的–reference-doc 是一个可选的参数，对于想要生成的文档，指定不同的样式。<br>一个简单的技巧是，先使用无–reference-doc 参数的命令生成一份word文档，接着打开文档，对标题居中加粗等样式处理，再以此调整过的样式文档作为模板，批量产生文档文件。</p>
+<p>当我们只有寥寥数个文档需要进行转换时，我们可能就直接从命令行中进行了，但是当我们需要转换大量的文档时，就需要使用批量方法来进行了。</p>
+<p>我们本可以直接使用一个for循环，进行Pandoc命令的系统调用，每当操作结束后开始下一条Pandoc命令，但是由于转换过程需要下载html中的图片内容，所以可能会遇到io阻塞的情况。这里我们使用asyncio库进行协程处理，这样就可以避免建立无意义的线程，也避免了来自网络的阻塞情况。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> asyncio</span><br><span class="line"></span><br><span class="line">src_dir = <span class="string">'D:/src_dir/'</span></span><br><span class="line">target_dir = <span class="string">'D:/out_dir/'</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 系统调用执行cmd命令，进行文档转换</span></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">cmd_call</span><span class="params">(cmd)</span>:</span></span><br><span class="line">    <span class="keyword">await</span> os.system(cmd)</span><br><span class="line">    print(cmd)</span><br><span class="line"></span><br><span class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">def</span> <span class="title">main</span><span class="params">()</span>:</span></span><br><span class="line">    tasks = []</span><br><span class="line">    <span class="keyword">for</span> root, dirs, files <span class="keyword">in</span> os.walk(src_dir):</span><br><span class="line">        <span class="keyword">for</span> file <span class="keyword">in</span> files:</span><br><span class="line">            <span class="comment"># 设置输出文件名称</span></span><br><span class="line">            filename = file.split(<span class="string">'.'</span>)[<span class="number">0</span>]</span><br><span class="line">            out_file = filename + <span class="string">'.docx'</span></span><br><span class="line">            <span class="comment"># cmd为系统之执行的命令</span></span><br><span class="line">            cmd = <span class="string">f'pandoc --reference-doc D:/template.docx <span class="subst">&#123;src_file&#125;</span> -o <span class="subst">&#123;out_file&#125;</span>'</span></span><br><span class="line"></span><br><span class="line">            <span class="comment"># 添加异步任务的编号到tasks数组中</span></span><br><span class="line">            tasks.append(asyncio.ensure_future(cmd_call(cmd)))</span><br><span class="line">    <span class="keyword">await</span> asyncio.wait(tasks)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># 获取事件循环，并运行直到所有任务都完成为止</span></span><br><span class="line">    loop = asyncio.get_event_loop()</span><br><span class="line">    loop.run_until_complete(main())</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><br><br><br></p>
+<h2 id="使用selenium爬取动态网页"><a href="#使用selenium爬取动态网页" class="headerlink" title="使用selenium爬取动态网页"></a>使用selenium爬取动态网页</h2><p>之前使用request方法来获取网页内容，这样仅仅适合用于静态的网页内容，对于动态的php页面，就无能为力了。<br>这种时候，我们就可以去使用selenium去调用浏览器来进行操作。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> selenium <span class="keyword">import</span> webdriver</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.common.by <span class="keyword">import</span> By</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.common.keys <span class="keyword">import</span> Keys</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support <span class="keyword">import</span> expected_conditions <span class="keyword">as</span> EC</span><br><span class="line"><span class="keyword">from</span> selenium.webdriver.support.wait <span class="keyword">import</span> WebDriverWait</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line">article_no = [<span class="number">2623</span>,<span class="number">2592</span>,<span class="number">2591</span>]</span><br><span class="line"></span><br><span class="line">base_url = <span class="string">'http://zl.univs.cn'</span></span><br><span class="line">url = <span class="string">'http://zl.univs.cn/show.php?classid='</span></span><br><span class="line">prag = <span class="string">''</span></span><br><span class="line">browser = webdriver.Chrome()</span><br><span class="line"></span><br><span class="line"><span class="keyword">try</span>:</span><br><span class="line">    <span class="keyword">for</span> no <span class="keyword">in</span> article_no:</span><br><span class="line">        browser.get(url + str(no))</span><br><span class="line">        html_doc = browser.page_source</span><br><span class="line">        <span class="comment"># print(html_doc)</span></span><br><span class="line">        soup = BeautifulSoup(html_doc, <span class="string">'html.parser'</span>)</span><br><span class="line">        article = (soup.find_all(<span class="string">'div'</span>, class_=<span class="string">'article-box'</span>))[<span class="number">0</span>]</span><br><span class="line">        title = (article.contents[<span class="number">1</span>].find_all(<span class="string">'h3'</span>))[<span class="number">0</span>].string</span><br><span class="line">        article_con = article.contents[<span class="number">3</span>]</span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> article_con.contents[<span class="number">1</span>::<span class="number">2</span>]:</span><br><span class="line">            <span class="keyword">if</span> i==<span class="literal">None</span> <span class="keyword">or</span> <span class="keyword">not</span> hasattr(i, <span class="string">'find_all'</span>):</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            img_list = i.find_all(<span class="string">'img'</span>)</span><br><span class="line">            <span class="keyword">if</span> len(img_list) != <span class="number">0</span>:</span><br><span class="line">                <span class="keyword">for</span> img_info <span class="keyword">in</span> img_list:</span><br><span class="line">                    <span class="keyword">try</span>:</span><br><span class="line">                        src = img_info.get(<span class="string">'src'</span>)</span><br><span class="line">                        img_filename = src.split(<span class="string">'/'</span>)[<span class="number">-1</span>]</span><br><span class="line">                        img = requests.get( base_url + src)</span><br><span class="line">                        img_file = open(img_filename,<span class="string">'wb'</span>)</span><br><span class="line">                        img_file.write(img.content)</span><br><span class="line">                    <span class="keyword">except</span>:</span><br><span class="line">                        <span class="keyword">if</span> <span class="string">'img_file'</span> <span class="keyword">in</span> dir():</span><br><span class="line">                            img_file.close()</span><br><span class="line">                        print(<span class="string">'Error '</span>,no)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                text = i.get_text()</span><br><span class="line">                re.sub(<span class="string">'\s'</span>,<span class="string">' '</span>,text)</span><br><span class="line"><span class="keyword">finally</span>:</span><br><span class="line">    browser.close()</span><br></pre></td></tr></table></figure>
+
+<hr>
+<p><br><br><br></p>
+<h2 id="从ishadows爬取json"><a href="#从ishadows爬取json" class="headerlink" title="从ishadows爬取json"></a>从ishadows爬取json</h2><p>个人使用shadowsocksR来进行网络代理，但是网络常常出现问题，写了一个小工具从网页中提取config信息</p>
+<p>代码非常简单，直接使用bs4来获取网页中的配置信息</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> os.path</span><br><span class="line"><span class="keyword">import</span> win32api</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"></span><br><span class="line"><span class="comment"># absdir = os.path.dirname(os.path.abspath(__file__))</span></span><br><span class="line">target_dir = <span class="string">'D:/Scoop/persist/shadowsocksr-csharp'</span></span><br><span class="line">filename = <span class="string">'gui-config.json'</span></span><br><span class="line">url = <span class="string">'https://c.ishadowx.net/'</span></span><br><span class="line"></span><br><span class="line">gui_config = &#123;&#125;</span><br><span class="line">base_config = &#123;</span><br><span class="line">    <span class="string">"remarks"</span> : <span class="string">""</span>,</span><br><span class="line">    <span class="string">"id"</span> : <span class="string">""</span>,  <span class="comment"># 尚未找到id的生成规则，先使用随机数代替</span></span><br><span class="line">    <span class="string">"server"</span> : <span class="string">""</span>,</span><br><span class="line">    <span class="string">"server_port"</span> : <span class="number">0</span>,</span><br><span class="line">    <span class="string">"server_udp_port"</span> : <span class="number">0</span>,</span><br><span class="line">    <span class="string">"password"</span> : <span class="string">""</span>,</span><br><span class="line">    <span class="string">"method"</span> : <span class="string">"aes-256-cfb"</span>,</span><br><span class="line">    <span class="string">"protocol"</span> : <span class="string">"origin"</span>,</span><br><span class="line">    <span class="string">"protocolparam"</span> : <span class="string">""</span>,</span><br><span class="line">    <span class="string">"obfs"</span> : <span class="string">"plain"</span>,</span><br><span class="line">    <span class="string">"obfsparam"</span> : <span class="string">""</span>,</span><br><span class="line">    <span class="string">"remarks_base64"</span> : <span class="string">""</span>,</span><br><span class="line">    <span class="string">"group"</span> : <span class="string">""</span>,</span><br><span class="line">    <span class="string">"enable"</span> : <span class="literal">True</span>,</span><br><span class="line">    <span class="string">"udp_over_tcp"</span> : <span class="literal">False</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">update_config</span><span class="params">()</span>:</span></span><br><span class="line">    gui_config = json.load(open(os.path.join(target_dir, filename)))</span><br><span class="line">    <span class="comment"># if len(gui_config['configs']) &gt; 0:</span></span><br><span class="line">    <span class="comment">#     gui_config['configs'] = gui_config['configs'][:1]  # 保留第一项配置</span></span><br><span class="line">    gui_config[<span class="string">'configs'</span>] = []  <span class="comment"># 不保留第一项配置</span></span><br><span class="line"></span><br><span class="line">    headers = &#123;</span><br><span class="line">        <span class="string">'User-Agent'</span>: <span class="string">'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/70.0.3538.67 Safari/537.36'</span></span><br><span class="line">    &#125;</span><br><span class="line">    resp = requests.get(url, headers=headers)</span><br><span class="line">    <span class="keyword">if</span> resp.status_code != <span class="number">200</span>:</span><br><span class="line">        print(<span class="string">'Error:'</span>, resp.status_code)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    html_doc = resp.content</span><br><span class="line">    soup = BeautifulSoup(html_doc, <span class="string">'html.parser'</span>)</span><br><span class="line">    hover_list = soup.find_all(<span class="string">'div'</span>, class_=<span class="string">'hover-text'</span>)</span><br><span class="line">    <span class="comment"># print(hover_list)</span></span><br><span class="line">    lam = <span class="keyword">lambda</span> x: str(x) <span class="keyword">if</span> x&lt;<span class="number">10</span> <span class="keyword">else</span> chr(x+<span class="number">55</span>)</span><br><span class="line">    <span class="keyword">for</span> hover <span class="keyword">in</span> hover_list[<span class="number">6</span>:<span class="number">9</span>]:</span><br><span class="line">        span_list = hover.find_all(<span class="string">'span'</span>)</span><br><span class="line">        base_config[<span class="string">'server'</span>] = span_list[<span class="number">0</span>].string</span><br><span class="line">        base_config[<span class="string">'server_port'</span>] = span_list[<span class="number">2</span>].string[:<span class="number">-1</span>]  <span class="comment"># 去掉尾部的'\n'</span></span><br><span class="line">        base_config[<span class="string">'password'</span>] = span_list[<span class="number">4</span>].string[:<span class="number">-1</span>]</span><br><span class="line">        hex32len = <span class="string">''</span>.join(list(map(lam, [random.randint(<span class="number">0</span>,<span class="number">15</span>) <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,<span class="number">31</span>)])))</span><br><span class="line">        base_config[<span class="string">'id'</span>] = hex32len</span><br><span class="line">        <span class="comment"># print(hex32len)</span></span><br><span class="line">        gui_config[<span class="string">'configs'</span>].append(base_config.copy())</span><br><span class="line">    <span class="comment"># print(gui_config['configs'])</span></span><br><span class="line">    json.dump(gui_config, open(os.path.join(target_dir, filename), <span class="string">'w'</span>), indent=<span class="number">4</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># 终止ShadowsocksR进程</span></span><br><span class="line">    os.system(<span class="string">"taskkill /F /IM ShadowsocksR-dotnet4.0.exe"</span>)</span><br><span class="line">    update_config()</span><br><span class="line">    win32api.ShellExecute(<span class="number">0</span>, <span class="string">'open'</span>, <span class="string">r'D:\Scoop\shims\shadowsocksr-dotnet4.0.exe'</span>, <span class="string">''</span>,<span class="string">''</span>,<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p><br><br><br></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/12/20/%E6%8F%90%E7%AC%94%E5%BF%98%E5%AD%97/" rel="prev" title="提笔忘字">
+      <i class="fa fa-chevron-left"></i> 提笔忘字
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2018/12/30/Python%E5%8F%91%E9%80%81%E9%82%AE%E4%BB%B6/" rel="next" title="Python发送邮件">
+      Python发送邮件 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#爬取网站中的新闻稿"><span class="nav-number">1.</span> <span class="nav-text">爬取网站中的新闻稿</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#通用的文档格式转换工具Pandoc"><span class="nav-number">2.</span> <span class="nav-text">通用的文档格式转换工具Pandoc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用selenium爬取动态网页"><span class="nav-number">3.</span> <span class="nav-text">使用selenium爬取动态网页</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#从ishadows爬取json"><span class="nav-number">4.</span> <span class="nav-text">从ishadows爬取json</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zhDing</p>
+  <div class="site-description" itemprop="description">兴来随笔</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhDing</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"meetzhding.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="今天折腾了一天，因为需要在微信小程序中使用mqtt客户端，连接到阿里云iot平台。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="微信小程序中的mqtt">
+<meta property="og:url" content="https://meetzhding.github.io/2019/03/06/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%AD%E7%9A%84mqtt/index.html">
+<meta property="og:site_name" content="变换思维">
+<meta property="og:description" content="今天折腾了一天，因为需要在微信小程序中使用mqtt客户端，连接到阿里云iot平台。">
+<meta property="article:published_time" content="2019-03-06T15:11:14.000Z">
+<meta property="article:modified_time" content="2020-04-17T02:43:15.428Z">
+<meta property="article:author" content="zhDing">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://meetzhding.github.io/2019/03/06/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%AD%E7%9A%84mqtt/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>微信小程序中的mqtt | 变换思维</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">变换思维</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://meetzhding.github.io/2019/03/06/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%B8%AD%E7%9A%84mqtt/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhDing">
+      <meta itemprop="description" content="兴来随笔">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="变换思维">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          微信小程序中的mqtt
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-03-06 23:11:14" itemprop="dateCreated datePublished" datetime="2019-03-06T23:11:14+08:00">2019-03-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-17 10:43:15" itemprop="dateModified" datetime="2020-04-17T10:43:15+08:00">2020-04-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>今天折腾了一天，因为需要在微信小程序中使用mqtt客户端，连接到阿里云iot平台。</p>
+<a id="more"></a>
+
+<p>众所周知，微信小程序网络的主要使用https和wss两种方式，所以小程序和iot平台的连接使用mqtt over websocket方式来维持长连接。</p>
+<p>今天试验了多个npmjs中的多个mqtt包，结果发现大部分都与小程序的环境不兼容，或者直接是包的依赖太多，尝试在小程序中进行构建‘构建npm’时，发生了报错。</p>
+<p>今天尝试的包有以下几个</p>
+<ol>
+<li>paho.mqtt.js</li>
+<li>web-mqtt-client</li>
+<li>paho.mqtt.wxapp</li>
+<li>mqtt</li>
+</ol>
+<p>首先是paho.mqtt.js，这是一个标准的既可以在浏览器和nodejs环境中调用的ecilpse官方包，我成功地在非微信小程序中实现了连接，但是在小程序的调试环境中总是失败，最后放弃，这个是有并没有意识到它就是没办法在小程序中使用，还以为是自己使用不正确。</p>
+<p>接着我转向使用web-mqtt-client，它的内核依旧是paho.mqtt.js，但是在表面添加了自己的外壳，api总体显得更加友好，但是依然是失败的。</p>
+<p>因为我知道有不少小程序使用了mqtt连接，所以一定是会有办法去进行连接的，网上的许多博客都指向一个个人开发的包paho.mqtt.wxapp。</p>
+<p>paho.mqtt.wxapp这个包为依照paho官方api，进行修改得到的一个用户微信小程序环境的包，但是他已经停止维护一年了，在测试的过程中，我发现它无法在node环境中使用。而在微信小程序运行的时候， 发生了一个我意想不到的情况，在连接的解析过程中，似乎对于符号 - 并不能正确处理，导致程序直接无法继续运行，我查看源码后发现，使用了正则表达式进行网址匹配处理，但是似乎匹配的并不够全面，最终放弃了更改的想法。</p>
+<p>最终我来到了mqtt。mqtt包的文档中就有说它实现了微信小程序的兼容，但是依然有许多关于微信小程序的issue，文档也没有给出使用的办法。采用传统npm方法安装以后，发现小程序没办法导入，小程序构建npm也无法成功。<br>这个时候似乎陷入了僵局，我尝试使用webpack工具将其抽离复杂的依赖环境，失败了。<br>最后我发现官方提供了一个独立文件的版本，入口并不明显，我在下载了这个独立文件后，终于能够成功导入了！</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> mqtt = <span class="built_in">require</span>(<span class="string">'./lib/mqtt'</span>);</span><br><span class="line"><span class="keyword">var</span> client = mqtt.connect(<span class="string">'wxs://a16dZw8w8UH.iot-as-mqtt.cn-shanghai.aliyuncs.com'</span>, &#123;</span><br><span class="line">    clientId: <span class="string">'esp8266|securemode=2,signmethod=hmacsha1|'</span>,</span><br><span class="line">    username: <span class="string">'esp8266&amp;a16dZw8w8UH'</span>,</span><br><span class="line">    password: <span class="string">'4707EEDA97CDBBEEDC60016E056F9ED2D9403D94'</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">client.on(<span class="string">'connect'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">`connected`</span>);</span><br><span class="line">client.subscribe(<span class="string">'/a16dZw8w8UH/esp8266/get'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">err</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (!err) &#123;</span><br><span class="line">            client.publish(<span class="string">'/a16dZw8w8UH/esp8266/update'</span>, <span class="string">'&#123;"TargetName":"phone"&#125;'</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">client.on(<span class="string">'message'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">topic, message</span>) </span>&#123;</span><br><span class="line"><span class="comment">// message is Buffer</span></span><br><span class="line"><span class="built_in">console</span>.log(message.toString())</span><br><span class="line">    client.end()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>这里简单记录一下代码，其中需要注意的有两点。</p>
+<ol>
+<li>require(‘./lib/mqtt’) 导入方式使用的是单文件的导入。</li>
+<li>mqtt.connect(‘wxs://…’, opts) 连接时网址使用的协议需要以wxs开头，而不是wss。</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/01/27/nginx%E7%AB%AF%E5%8F%A3%E8%BD%AC%E5%8F%91/" rel="prev" title="Nginx端口转发">
+      <i class="fa fa-chevron-left"></i> Nginx端口转发
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/03/13/%E5%AE%89%E8%A3%85node-sass%E7%9A%84%E6%96%B9%E6%B3%95/" rel="next" title="安装node-sass的方法">
+      安装node-sass的方法 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zhDing</p>
+  <div class="site-description" itemprop="description">兴来随笔</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhDing</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

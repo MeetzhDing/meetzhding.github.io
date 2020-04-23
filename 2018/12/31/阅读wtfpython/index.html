@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"meetzhding.github.io","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="python的使用体验才开始写python代码的时候，我觉得python相当优雅，它拥有整齐的缩进，动态语言的快速开发，多返回值，列表元祖集合字典，数之不尽的package可供调用…… 但是当使用了一段时间以后，我发先python并没有想象的那么美好，动态语言的特性往往会带来许多低级的语意错误，这些错误无法在编辑时被自动检查出来。由于语言使用缩进来代表代码的层次关系，导致代码显得过于紧凑，不同功能">
+<meta property="og:type" content="article">
+<meta property="og:title" content="阅读wtfPython">
+<meta property="og:url" content="https://meetzhding.github.io/2018/12/31/%E9%98%85%E8%AF%BBwtfpython/index.html">
+<meta property="og:site_name" content="变换思维">
+<meta property="og:description" content="python的使用体验才开始写python代码的时候，我觉得python相当优雅，它拥有整齐的缩进，动态语言的快速开发，多返回值，列表元祖集合字典，数之不尽的package可供调用…… 但是当使用了一段时间以后，我发先python并没有想象的那么美好，动态语言的特性往往会带来许多低级的语意错误，这些错误无法在编辑时被自动检查出来。由于语言使用缩进来代表代码的层次关系，导致代码显得过于紧凑，不同功能">
+<meta property="article:published_time" content="2018-12-31T02:41:45.000Z">
+<meta property="article:modified_time" content="2020-04-17T02:43:15.431Z">
+<meta property="article:author" content="zhDing">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://meetzhding.github.io/2018/12/31/%E9%98%85%E8%AF%BBwtfpython/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-Hans'
+  };
+</script>
+
+  <title>阅读wtfPython | 变换思维</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">变换思维</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>Archives</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-Hans">
+    <link itemprop="mainEntityOfPage" href="https://meetzhding.github.io/2018/12/31/%E9%98%85%E8%AF%BBwtfpython/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="zhDing">
+      <meta itemprop="description" content="兴来随笔">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="变换思维">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          阅读wtfPython
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-12-31 10:41:45" itemprop="dateCreated datePublished" datetime="2018-12-31T10:41:45+08:00">2018-12-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-04-17 10:43:15" itemprop="dateModified" datetime="2020-04-17T10:43:15+08:00">2020-04-17</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="python的使用体验"><a href="#python的使用体验" class="headerlink" title="python的使用体验"></a>python的使用体验</h2><p>才开始写python代码的时候，我觉得python相当优雅，它拥有整齐的缩进，动态语言的快速开发，多返回值，列表元祖集合字典，数之不尽的package可供调用……</p>
+<p>但是当使用了一段时间以后，我发先python并没有想象的那么美好，动态语言的特性往往会带来许多低级的语意错误，这些错误无法在编辑时被自动检查出来。由于语言使用缩进来代表代码的层次关系，导致代码显得过于紧凑，不同功能的语句紧紧地堆在一起，在这种时候，缩进提供的区块划分能力对人来说可能就略显不足。</p>
+<p>按照严谨标准的<a href="https://pep8.org/" target="_blank" rel="noopener">PEP8</a>书写python代码时，错误会减少很多。但很多时候依然觉得由于缩进带来的头重脚轻依然无法避免。这些都还只是个人的喜好问题，但是当我看到WtfPython以后，我意识到，在使用python的过程中，还有许多的坑需要注意。</p>
+<hr>
+<br>
+
+<h2 id="WtfPython"><a href="#WtfPython" class="headerlink" title="WtfPython"></a>WtfPython</h2><p><a href="https://github.com/leisurelicht/wtfpython-cn" target="_blank" rel="noopener">WtfPython项目</a>讲述了一些不为人所知的python特性，它们都不是Python语言的Bug，但是部分看起来非常诡异。原作者翻译的阅读起来通俗易懂，这里也就无需复述。</p>
+<p>我花费了两天的闲暇时间看完了它，虽说其中的一些例子在正常书写时触发的可能性非常低，但是依然让我感受到了明显的<strong>不良设计</strong>。</p>
+<p>在阅读完文档以后，我有以下几个感受：</p>
+<pre><code>1. python的内存占用可能比你想象的要多
+2. 循环内定义函数相当容易出错
+3. A=A+1 与 A+=1可能带来显著不同
+4. 子作用域 可能会无意影响 外部作用域
+5. 连续的赋值语句 与 多op连用 并不如你想象的那样直观
+6. 对可迭代对象的 迭代中修改 是 危险的
+7. del 与 pop 与 remove 的处理并不直观
+8. 函数的 默认参数 可能是可变的
+9. 链式操作 中链子越长，危险越大</code></pre><p>虽说这样错误都是可避免的，都是有着成型的解决方案的，但是他们依然是一个陷阱，等待着后来人不断跳进去。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/12/30/NodeJS%E4%BD%BF%E7%94%A8TCP/" rel="prev" title="NodeJS使用TCP">
+      <i class="fa fa-chevron-left"></i> NodeJS使用TCP
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/01/19/unicode%E7%BC%96%E7%A0%81/" rel="next" title="Unicode编码">
+      Unicode编码 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#python的使用体验"><span class="nav-number">1.</span> <span class="nav-text">python的使用体验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WtfPython"><span class="nav-number">2.</span> <span class="nav-text">WtfPython</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">zhDing</p>
+  <div class="site-description" itemprop="description">兴来随笔</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhDing</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
