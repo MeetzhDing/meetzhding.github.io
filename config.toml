@@ -1,0 +1,4 @@
+baseURL = 'https://meetzhding.github.io/'
+languageCode = 'zh-ch'
+title = '变换思维'
+theme = "ananke"
