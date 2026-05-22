@@ -4,9 +4,7 @@ import { iconKeys } from '@/common/navigation/icons';
 import navigationSource from '../navigation.yaml?raw';
 
 const IconKeySchema = z.enum(iconKeys, {
-  errorMap: () => ({
-    message: `Icon must be one of: ${iconKeys.join(', ')}`,
-  }),
+  error: `Icon must be one of: ${iconKeys.join(', ')}`,
 });
 
 const UrlSchema = z
