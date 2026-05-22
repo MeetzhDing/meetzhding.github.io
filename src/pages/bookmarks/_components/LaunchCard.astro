@@ -1,0 +1,30 @@
+---
+import { iconMap } from '@/common/navigation/icons';
+import type { NavigationItem } from '../_lib/navigation';
+
+interface Props {
+  item: NavigationItem;
+}
+
+const { item } = Astro.props;
+const Icon = iconMap[item.icon];
+const target = item.external ? '_blank' : undefined;
+const rel = item.external ? 'noreferrer' : undefined;
+---
+
+<a
+  class="launch-card"
+  href={item.url}
+  target={target}
+  rel={rel}
+  style={`--accent: ${item.color}`}
+>
+  <span class="launch-card__icon" aria-hidden="true">
+    <Icon size={28} stroke-width={2.2} />
+  </span>
+  <span class="launch-card__body">
+    <span class="launch-card__title">
+      {item.title}
+    </span>
+  </span>
+</a>

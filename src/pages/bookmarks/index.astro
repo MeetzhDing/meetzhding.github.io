@@ -1,0 +1,194 @@
+---
+import BaseLayout from '@/common/layouts/BaseLayout.astro';
+import LaunchCard from './_components/LaunchCard.astro';
+import { getNavigation } from './_lib/navigation';
+
+const navigation = getNavigation();
+const items = navigation.items;
+const slotCount = Math.max(8, Math.ceil(items.length / 4) * 4);
+const slots = Array.from({ length: slotCount }, (_, index) => items[index] ?? null);
+---
+
+<BaseLayout title={navigation.site.title} description={navigation.site.title}>
+  <main class="shell">
+    <div class="launch-grid" aria-label="Navigation">
+      {
+        slots.map((item) => (
+          item ? <LaunchCard item={item} /> : <div class="launch-card launch-card--empty" aria-hidden="true" />
+        ))
+      }
+    </div>
+  </main>
+</BaseLayout>
+
+<style is:global>
+  :root {
+    color-scheme: light;
+    --ink: #1d2428;
+    --muted: #64727a;
+    --line: #d9e0e3;
+    --surface: #f7f5ef;
+    --panel: #ffffff;
+    --panel-soft: #f0eee6;
+    --focus: #0f6fb0;
+    font-family:
+      Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background: var(--surface);
+    color: var(--ink);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    min-width: 320px;
+    min-height: 100vh;
+    margin: 0;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(247, 245, 239, 0) 210px),
+      var(--surface);
+  }
+
+  a {
+    color: inherit;
+  }
+
+  button,
+  input {
+    font: inherit;
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+
+  .shell {
+    width: min(1080px, calc(100% - 40px));
+    margin: 0 auto;
+    padding: 56px 0;
+  }
+
+  h1,
+  h2,
+  p {
+    margin: 0;
+  }
+
+  .launch-card:focus-visible {
+    outline: 3px solid rgba(15, 111, 176, 0.34);
+    outline-offset: 3px;
+  }
+
+  .launch-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .launch-card {
+    position: relative;
+    display: grid;
+    grid-template-rows: 54px auto;
+    align-content: center;
+    justify-items: center;
+    min-width: 0;
+    aspect-ratio: 1.62 / 1;
+    gap: 16px;
+    overflow: hidden;
+    padding: 20px;
+    border: 1px solid color-mix(in srgb, var(--accent), #ffffff 58%);
+    border-radius: 8px;
+    background:
+      linear-gradient(135deg, color-mix(in srgb, var(--accent), #ffffff 86%), #ffffff 72%),
+      var(--panel);
+    box-shadow: 0 12px 30px rgba(50, 62, 70, 0.07);
+    text-decoration: none;
+    transition:
+      border-color 160ms ease,
+      box-shadow 160ms ease,
+      transform 160ms ease;
+  }
+
+  .launch-card::after {
+    content: none;
+  }
+
+  .launch-card:hover {
+    border-color: color-mix(in srgb, var(--accent), #1d2428 12%);
+    box-shadow: 0 16px 38px rgba(50, 62, 70, 0.12);
+    transform: translateY(-2px);
+  }
+
+  .launch-card:active {
+    transform: translateY(0);
+  }
+
+  .launch-card--empty {
+    --accent: #c5ccd0;
+    border-style: dashed;
+    background: rgba(255, 255, 255, 0.34);
+    box-shadow: none;
+  }
+
+  .launch-card__icon {
+    display: inline-grid;
+    width: 54px;
+    height: 54px;
+    place-items: center;
+    border-radius: 8px;
+    background: var(--accent);
+    color: #fff;
+    box-shadow: 0 12px 24px color-mix(in srgb, var(--accent), transparent 70%);
+  }
+
+  .launch-card__body {
+    display: block;
+    min-width: 0;
+    text-align: center;
+  }
+
+  .launch-card__title {
+    display: inline-flex;
+    max-width: 100%;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    font-size: 1.08rem;
+    font-weight: 760;
+    line-height: 1.16;
+    overflow-wrap: anywhere;
+  }
+
+  @media (max-width: 900px) {
+    .shell {
+      width: min(760px, calc(100% - 32px));
+    }
+
+    .launch-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 720px) {
+    .shell {
+      width: min(100% - 24px, 760px);
+      padding: 28px 0;
+    }
+
+    .launch-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .launch-card {
+      padding: 18px;
+    }
+  }
+
+  @media (max-width: 460px) {
+    .launch-card {
+      aspect-ratio: 1.35 / 1;
+    }
+  }
+</style>

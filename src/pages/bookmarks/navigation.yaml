@@ -1,0 +1,22 @@
+site:
+  title: "Bookmarks"
+
+items:
+  - title: "ChatGPT"
+    description: ""
+    url: "https://chatgpt.com"
+    icon: "bot"
+    color: "#2f7d68"
+    external: true
+  - title: "Claude"
+    description: ""
+    url: "https://claude.ai"
+    icon: "sparkles"
+    color: "#9a5a3f"
+    external: true
+  - title: "Instagram"
+    description: ""
+    url: "https://www.instagram.com"
+    icon: "instagram"
+    color: "#8d4f7a"
+    external: true
