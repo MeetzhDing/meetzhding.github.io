@@ -1,0 +1,10 @@
+packages:
+  - .
+
+allowBuilds:
+  esbuild: true
+  sharp: true
+
+minimumReleaseAge: 0
+nodeVersion: 22.12.0
+engineStrict: true

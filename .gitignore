@@ -3,6 +3,7 @@ Thumbs.db
 db.json
 *.log
 node_modules/
+.pnpm-store/
 
 .astro/
 dist/
