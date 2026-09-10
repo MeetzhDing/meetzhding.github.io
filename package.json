@@ -10,7 +10,7 @@
     "check": "astro check"
   },
   "dependencies": {
-    "astro": "^6.3.7",
+    "astro": "^7.2.8",
     "lucide-astro": "^0.556.0",
     "yaml": "^2.9.0",
     "zod": "^4.4.3"
